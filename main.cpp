@@ -80,6 +80,20 @@ static void testHuffmanRoundTrip(
     }
 }
 
+static void testHuffmanExpectException(
+    const std::string& name,
+    const Huffman::EncodedData& invalidData) {
+
+    Huffman huff;
+    try {
+        huff.decompress(invalidData);
+        reportResult(name, false);
+    }
+    catch (const std::exception&) {
+        reportResult(name, true);
+    }
+}
+
 static void runHuffmanTests() {
     std::cout << "\n╔══════════════════════════════════════╗\n"
               <<   "║      HUFFMAN  CODEC  TESTS           ║\n"
@@ -125,6 +139,21 @@ static void runHuffmanTests() {
         for (int i = 0; i < 100;  ++i) skewed.push_back('c');
         testHuffmanRoundTrip("Skewed distribution (90/9/1)", skewed);
     }
+
+    // Malformed / corrupted streams
+    {
+        Huffman::EncodedData badFreq{{0x00}, std::vector<uint64_t>(255, 0), 1, 8};
+        testHuffmanExpectException("Huffman reject invalid freq table size", badFreq);
+
+        Huffman::EncodedData badSum{{0x00}, std::vector<uint64_t>(256, 0), 10, 8};
+        badSum.frequencies[0] = 5;
+        testHuffmanExpectException("Huffman reject frequency sum mismatch", badSum);
+
+        Huffman huff;
+        auto enc = huff.compress(makeBytes("Hello"));
+        enc.data.pop_back(); // truncate payload
+        testHuffmanExpectException("Huffman reject truncated bitstream", enc);
+    }
 }
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -146,6 +175,20 @@ static void testLZWRoundTrip(
         std::cout << "  [FAIL] " << name
                   << " — exception: " << e.what() << "\n";
         ++gTestsFailed;
+    }
+}
+
+static void testLZWExpectException(
+    const std::string& name,
+    const LZW::EncodedData& invalidData) {
+
+    LZW lzw;
+    try {
+        lzw.decompress(invalidData);
+        reportResult(name, false);
+    }
+    catch (const std::exception&) {
+        reportResult(name, true);
     }
 }
 
@@ -203,6 +246,27 @@ static void runLZWTests() {
         for (int i = 0; i < 200000; ++i)
             stress.push_back(static_cast<uint8_t>(i % 251)); // prime mod
         testLZWRoundTrip("Dictionary stress (200 KB, mod-251)", stress);
+    }
+
+    // True dictionary saturation (>65536 entries, continue encoding)
+    {
+        std::mt19937 rng(1337);
+        std::uniform_int_distribution<int> dist(0, 255);
+        std::vector<uint8_t> data(300000);
+        for (auto& b : data) b = static_cast<uint8_t>(dist(rng));
+        testLZWRoundTrip("Full dictionary saturation (>65536 entries)", data);
+    }
+
+    // Malformed / corrupted streams
+    {
+        LZW::EncodedData badCount{{0x00, 0x00, 0x01}, 2, 2}; // 3 bytes for 2 codes
+        testLZWExpectException("LZW reject data size mismatch", badCount);
+
+        LZW::EncodedData badFirst{{0x00, 0x01}, 1, 1}; // first code 256
+        testLZWExpectException("LZW reject first code >= 256", badFirst);
+
+        LZW::EncodedData badCode{{0x41, 0x00, 0x00, 0x02}, 2, 2}; // code 512
+        testLZWExpectException("LZW reject out-of-range code", badCode);
     }
 }
 

@@ -1,0 +1,5 @@
+# ninja log v7
+12	2558	8141367366722966	CMakeFiles/forge.dir/src/huffman/Huffman.cpp.obj	4dd2adab281d5edc
+23	2647	8141367366833039	CMakeFiles/forge.dir/src/lzw/LZW.cpp.obj	e6b233c11dae3e47
+3	3547	8141367366628084	CMakeFiles/forge.dir/main.cpp.obj	fae20dbd757364fe
+3547	3801	8141367402072322	forge.exe	93bc4f722a01c831

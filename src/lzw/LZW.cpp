@@ -20,7 +20,7 @@
 //           dictionary has not reached MAX_DICT_SIZE.
 //        c. Reset the current sequence to the byte that caused the miss.
 //   4. After input is exhausted, emit the code for the final sequence.
-//   5. Pack all 16-bit codes into the output byte stream (big-endian).
+//   5. Pack all 16-bit codes into the output byte stream (little-endian).
 //
 // Dictionary representation:
 //   Encoder — std::unordered_map<std::string, uint16_t>
@@ -96,16 +96,16 @@ LZW::EncodedData LZW::compress(
     // Emit the final sequence.
     codes.push_back(dict.at(current));
 
-    // ── Pack 16-bit codes into bytes (big-endian) ───────────────────
+    // ── Pack 16-bit codes into bytes (little-endian) ────────────────
 
     result.codeCount = codes.size();
     result.data.reserve(codes.size() * 2);
 
     for (uint16_t code : codes) {
         result.data.push_back(
-            static_cast<uint8_t>((code >> 8) & 0xFF));
-        result.data.push_back(
             static_cast<uint8_t>(code & 0xFF));
+        result.data.push_back(
+            static_cast<uint8_t>((code >> 8) & 0xFF));
     }
 
     return result;
@@ -141,7 +141,7 @@ std::vector<uint8_t> LZW::decompress(
         throw std::invalid_argument(
             "LZW stream has no codes but non-zero original size");
 
-    // ── Unpack 16-bit codes ─────────────────────────────────────────
+    // ── Unpack 16-bit codes (little-endian) ─────────────────────────
 
     std::vector<uint16_t> codes;
     codes.reserve(encoded.codeCount);
@@ -150,8 +150,8 @@ std::vector<uint8_t> LZW::decompress(
         size_t byteIdx = static_cast<size_t>(i * 2);
 
         uint16_t code = static_cast<uint16_t>(
-            (static_cast<uint16_t>(encoded.data[byteIdx]) << 8) |
-             static_cast<uint16_t>(encoded.data[byteIdx + 1]));
+            static_cast<uint16_t>(encoded.data[byteIdx]) |
+            (static_cast<uint16_t>(encoded.data[byteIdx + 1]) << 8));
 
         codes.push_back(code);
     }
@@ -172,6 +172,13 @@ std::vector<uint8_t> LZW::decompress(
     if (codes[0] >= INITIAL_DICT_SIZE)
         throw std::invalid_argument(
             "LZW first code is not a single-byte entry");
+
+    if (encoded.originalSize >
+        static_cast<uint64_t>(
+            std::vector<uint8_t>().max_size())) {
+        throw std::length_error(
+            "Decoded output exceeds maximum vector size");
+    }
 
     std::vector<uint8_t> output;
     output.reserve(
@@ -202,8 +209,13 @@ std::vector<uint8_t> LZW::decompress(
                 std::to_string(code));
         }
 
-        for (char c : entry)
+        for (char c : entry) {
             output.push_back(static_cast<uint8_t>(c));
+            if (output.size() > encoded.originalSize) {
+                throw std::invalid_argument(
+                    "Decoded data exceeds expected size");
+            }
+        }
 
         // Add new dictionary entry (previous + first char of entry).
         if (nextCode < MAX_DICT_SIZE) {

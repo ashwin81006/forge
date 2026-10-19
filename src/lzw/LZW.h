@@ -13,7 +13,7 @@ public:
     static constexpr uint32_t MAX_DICT_SIZE = 65536;
 
     struct EncodedData {
-        std::vector<uint8_t> data;      // Packed 16-bit codes as bytes (big-endian)
+        std::vector<uint8_t> data;      // Packed 16-bit codes as bytes (little-endian)
         uint64_t originalSize;          // Original uncompressed byte count
         uint64_t codeCount;             // Number of 16-bit codes emitted
     };

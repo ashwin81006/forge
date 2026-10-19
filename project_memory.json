@@ -1,0 +1,120 @@
+{
+  "project_name": "FORGE",
+  "current_phase": "M2_LZW",
+  "completed_milestones": [
+    "M1",
+    "M2"
+  ],
+  "active_milestone": "M3_BLOCKS",
+  "next_actions": [
+    "Implement M3 configurable block processor",
+    "Implement M4 adaptive algorithm selector (RAW, Huffman, LZW)"
+  ],
+  "architecture_decisions": [
+    {
+      "decision": "Use block-based compression with a default block size of 64 KiB",
+      "reason": "Limits memory usage, enables independent block decoding, and allows mixed methods within one file."
+    },
+    {
+      "decision": "Use fixed-width 16-bit LZW codes with 65536 dictionary cap",
+      "reason": "Simplifies implementation and avoids variable-width code complexity in version 1."
+    },
+    {
+      "decision": "Use adaptive block-level selection among RAW, Huffman, and LZW",
+      "reason": "Prevents compression overhead from increasing stored size and makes algorithm comparison central to the project."
+    },
+    {
+      "decision": "Use SHA-256 for file-level integrity",
+      "reason": "Provides strong verification of exact lossless recovery."
+    }
+  ],
+  "archive_format_decisions": [
+    {
+      "decision": "Mandate little-endian byte ordering for archive headers, fields, and LZW codes",
+      "reason": "Spec requirement for portability across systems."
+    }
+  ],
+  "algorithm_decisions": [
+    {
+      "decision": "Huffman deterministic tree ordering using (frequency, minSymbol, order)",
+      "reason": "Guarantees reproducible canonical tree generation across platforms."
+    },
+    {
+      "decision": "Freeze LZW dictionary at 65536 entries and continue encoding without clearing",
+      "reason": "Maintains encoder-decoder sync per spec."
+    }
+  ],
+  "known_issues": [
+    {
+      "id": "ISSUE-01",
+      "description": "LZW 16-bit code serialization currently uses big-endian packing; spec mandates little-endian consistently.",
+      "severity": "Low",
+      "status": "RESOLVED"
+    },
+    {
+      "id": "ISSUE-02",
+      "description": "LZW decompressor does not bound-check during output expansion or validate originalSize against vector max_size.",
+      "severity": "Low",
+      "status": "RESOLVED"
+    },
+    {
+      "id": "ISSUE-03",
+      "description": "BitReader and BitWriter (src/io/) not yet extracted as standalone modules; M1 uses inlined bit packing.",
+      "severity": "Low",
+      "status": "OPEN"
+    }
+  ],
+  "test_status": {
+    "total_tests": 34,
+    "passed": 34,
+    "failed": 0,
+    "huffman_tests": 16,
+    "lzw_tests": 18
+  },
+  "benchmark_results_summary": {
+    "repetitive_text_20kb": {
+      "huffman_ratio": "1.70x",
+      "lzw_ratio": "11.30x",
+      "winner": "LZW"
+    },
+    "cpp_source_13kb": {
+      "huffman_ratio": "1.49x",
+      "lzw_ratio": "5.26x",
+      "winner": "LZW"
+    },
+    "all_zeroes_64kb": {
+      "huffman_ratio": "6.40x",
+      "lzw_ratio": "90.52x",
+      "winner": "LZW"
+    },
+    "random_bytes_64kb": {
+      "huffman_ratio": "0.97x",
+      "lzw_ratio": "0.65x",
+      "winner": "Huffman (neither compresses)"
+    },
+    "cycling_0_255_64kb": {
+      "huffman_ratio": "0.97x",
+      "lzw_ratio": "5.78x",
+      "winner": "LZW"
+    }
+  },
+  "file_inventory": [
+    "src/huffman/Huffman.h",
+    "src/huffman/Huffman.cpp",
+    "src/lzw/LZW.h",
+    "src/lzw/LZW.cpp",
+    "main.cpp",
+    "CMakeLists.txt",
+    "forge_implementation_prompt.json"
+  ],
+  "changelog": [
+    {
+      "date": "Phase 0 Review",
+      "entry": "Completed initial review of M1 (Huffman) and M2 (LZW). Verified build and 27 tests passing. Created project memory."
+    },
+    {
+      "date": "Phase 0 Fixes",
+      "entry": "Fixed LZW 16-bit code endianness to little-endian. Added LZW decompression memory bounds checks. Added tests for dictionary saturation (>65536 codes) and corrupted stream rejection (34/34 passing)."
+    }
+  ]
+}

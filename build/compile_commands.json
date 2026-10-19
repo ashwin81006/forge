@@ -1,0 +1,20 @@
+[
+{
+  "directory": "C:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -g -std=c++17 -o CMakeFiles\\forge.dir\\main.cpp.obj -c C:\\01_Rithanya\\06_College\\SEM_5\\DAA_Lab\\Package\\forge\\main.cpp",
+  "file": "C:\\01_Rithanya\\06_College\\SEM_5\\DAA_Lab\\Package\\forge\\main.cpp",
+  "output": "CMakeFiles\\forge.dir\\main.cpp.obj"
+},
+{
+  "directory": "C:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -g -std=c++17 -o CMakeFiles\\forge.dir\\src\\huffman\\Huffman.cpp.obj -c C:\\01_Rithanya\\06_College\\SEM_5\\DAA_Lab\\Package\\forge\\src\\huffman\\Huffman.cpp",
+  "file": "C:\\01_Rithanya\\06_College\\SEM_5\\DAA_Lab\\Package\\forge\\src\\huffman\\Huffman.cpp",
+  "output": "CMakeFiles\\forge.dir\\src\\huffman\\Huffman.cpp.obj"
+},
+{
+  "directory": "C:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -g -std=c++17 -o CMakeFiles\\forge.dir\\src\\lzw\\LZW.cpp.obj -c C:\\01_Rithanya\\06_College\\SEM_5\\DAA_Lab\\Package\\forge\\src\\lzw\\LZW.cpp",
+  "file": "C:\\01_Rithanya\\06_College\\SEM_5\\DAA_Lab\\Package\\forge\\src\\lzw\\LZW.cpp",
+  "output": "CMakeFiles\\forge.dir\\src\\lzw\\LZW.cpp.obj"
+}
+]
