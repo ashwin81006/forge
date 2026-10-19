@@ -52,7 +52,7 @@ build cmake_object_order_depends_target_forge: phony || .
 build CMakeFiles/forge.dir/main.cpp.obj: CXX_COMPILER__forge_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/main.cpp || cmake_object_order_depends_target_forge
   DEP_FILE = CMakeFiles\forge.dir\main.cpp.obj.d
   FLAGS = -g -std=c++17
-  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
   OBJECT_DIR = CMakeFiles\forge.dir
   OBJECT_FILE_DIR = CMakeFiles\forge.dir
   TARGET_COMPILE_PDB = CMakeFiles\forge.dir\
@@ -61,7 +61,7 @@ build CMakeFiles/forge.dir/main.cpp.obj: CXX_COMPILER__forge_unscanned_Debug C$:
 build CMakeFiles/forge.dir/src/huffman/Huffman.cpp.obj: CXX_COMPILER__forge_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman/Huffman.cpp || cmake_object_order_depends_target_forge
   DEP_FILE = CMakeFiles\forge.dir\src\huffman\Huffman.cpp.obj.d
   FLAGS = -g -std=c++17
-  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
   OBJECT_DIR = CMakeFiles\forge.dir
   OBJECT_FILE_DIR = CMakeFiles\forge.dir\src\huffman
   TARGET_COMPILE_PDB = CMakeFiles\forge.dir\
@@ -70,9 +70,45 @@ build CMakeFiles/forge.dir/src/huffman/Huffman.cpp.obj: CXX_COMPILER__forge_unsc
 build CMakeFiles/forge.dir/src/lzw/LZW.cpp.obj: CXX_COMPILER__forge_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw/LZW.cpp || cmake_object_order_depends_target_forge
   DEP_FILE = CMakeFiles\forge.dir\src\lzw\LZW.cpp.obj.d
   FLAGS = -g -std=c++17
-  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
   OBJECT_DIR = CMakeFiles\forge.dir
   OBJECT_FILE_DIR = CMakeFiles\forge.dir\src\lzw
+  TARGET_COMPILE_PDB = CMakeFiles\forge.dir\
+  TARGET_PDB = forge.pdb
+
+build CMakeFiles/forge.dir/src/engine/CompressionEngine.cpp.obj: CXX_COMPILER__forge_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine/CompressionEngine.cpp || cmake_object_order_depends_target_forge
+  DEP_FILE = CMakeFiles\forge.dir\src\engine\CompressionEngine.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\forge.dir
+  OBJECT_FILE_DIR = CMakeFiles\forge.dir\src\engine
+  TARGET_COMPILE_PDB = CMakeFiles\forge.dir\
+  TARGET_PDB = forge.pdb
+
+build CMakeFiles/forge.dir/src/archive/ArchiveWriter.cpp.obj: CXX_COMPILER__forge_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive/ArchiveWriter.cpp || cmake_object_order_depends_target_forge
+  DEP_FILE = CMakeFiles\forge.dir\src\archive\ArchiveWriter.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\forge.dir
+  OBJECT_FILE_DIR = CMakeFiles\forge.dir\src\archive
+  TARGET_COMPILE_PDB = CMakeFiles\forge.dir\
+  TARGET_PDB = forge.pdb
+
+build CMakeFiles/forge.dir/src/archive/ArchiveReader.cpp.obj: CXX_COMPILER__forge_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive/ArchiveReader.cpp || cmake_object_order_depends_target_forge
+  DEP_FILE = CMakeFiles\forge.dir\src\archive\ArchiveReader.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\forge.dir
+  OBJECT_FILE_DIR = CMakeFiles\forge.dir\src\archive
+  TARGET_COMPILE_PDB = CMakeFiles\forge.dir\
+  TARGET_PDB = forge.pdb
+
+build CMakeFiles/forge.dir/src/benchmark/Benchmark.cpp.obj: CXX_COMPILER__forge_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark/Benchmark.cpp || cmake_object_order_depends_target_forge
+  DEP_FILE = CMakeFiles\forge.dir\src\benchmark\Benchmark.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\forge.dir
+  OBJECT_FILE_DIR = CMakeFiles\forge.dir\src\benchmark
   TARGET_COMPILE_PDB = CMakeFiles\forge.dir\
   TARGET_PDB = forge.pdb
 
@@ -84,7 +120,7 @@ build CMakeFiles/forge.dir/src/lzw/LZW.cpp.obj: CXX_COMPILER__forge_unscanned_De
 #############################################
 # Link the executable forge.exe
 
-build forge.exe: CXX_EXECUTABLE_LINKER__forge_Debug CMakeFiles/forge.dir/main.cpp.obj CMakeFiles/forge.dir/src/huffman/Huffman.cpp.obj CMakeFiles/forge.dir/src/lzw/LZW.cpp.obj
+build forge.exe: CXX_EXECUTABLE_LINKER__forge_Debug CMakeFiles/forge.dir/main.cpp.obj CMakeFiles/forge.dir/src/huffman/Huffman.cpp.obj CMakeFiles/forge.dir/src/lzw/LZW.cpp.obj CMakeFiles/forge.dir/src/engine/CompressionEngine.cpp.obj CMakeFiles/forge.dir/src/archive/ArchiveWriter.cpp.obj CMakeFiles/forge.dir/src/archive/ArchiveReader.cpp.obj CMakeFiles/forge.dir/src/benchmark/Benchmark.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\forge.dir
@@ -94,6 +130,462 @@ build forge.exe: CXX_EXECUTABLE_LINKER__forge_Debug CMakeFiles/forge.dir/main.cp
   TARGET_FILE = forge.exe
   TARGET_IMPLIB = libforge.dll.a
   TARGET_PDB = forge.pdb
+
+# =============================================================================
+# Object build statements for EXECUTABLE target test_huffman
+
+
+#############################################
+# Order-only phony target for test_huffman
+
+build cmake_object_order_depends_target_test_huffman: phony || .
+
+build CMakeFiles/test_huffman.dir/tests/test_huffman.cpp.obj: CXX_COMPILER__test_huffman_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/tests/test_huffman.cpp || cmake_object_order_depends_target_test_huffman
+  DEP_FILE = CMakeFiles\test_huffman.dir\tests\test_huffman.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_huffman.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_huffman.dir\tests
+  TARGET_COMPILE_PDB = CMakeFiles\test_huffman.dir\
+  TARGET_PDB = test_huffman.pdb
+
+build CMakeFiles/test_huffman.dir/src/huffman/Huffman.cpp.obj: CXX_COMPILER__test_huffman_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman/Huffman.cpp || cmake_object_order_depends_target_test_huffman
+  DEP_FILE = CMakeFiles\test_huffman.dir\src\huffman\Huffman.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_huffman.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_huffman.dir\src\huffman
+  TARGET_COMPILE_PDB = CMakeFiles\test_huffman.dir\
+  TARGET_PDB = test_huffman.pdb
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test_huffman
+
+
+#############################################
+# Link the executable test_huffman.exe
+
+build test_huffman.exe: CXX_EXECUTABLE_LINKER__test_huffman_Debug CMakeFiles/test_huffman.dir/tests/test_huffman.cpp.obj CMakeFiles/test_huffman.dir/src/huffman/Huffman.cpp.obj
+  FLAGS = -g
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\test_huffman.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\test_huffman.dir\
+  TARGET_FILE = test_huffman.exe
+  TARGET_IMPLIB = libtest_huffman.dll.a
+  TARGET_PDB = test_huffman.pdb
+
+# =============================================================================
+# Object build statements for EXECUTABLE target test_lzw
+
+
+#############################################
+# Order-only phony target for test_lzw
+
+build cmake_object_order_depends_target_test_lzw: phony || .
+
+build CMakeFiles/test_lzw.dir/tests/test_lzw.cpp.obj: CXX_COMPILER__test_lzw_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/tests/test_lzw.cpp || cmake_object_order_depends_target_test_lzw
+  DEP_FILE = CMakeFiles\test_lzw.dir\tests\test_lzw.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_lzw.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_lzw.dir\tests
+  TARGET_COMPILE_PDB = CMakeFiles\test_lzw.dir\
+  TARGET_PDB = test_lzw.pdb
+
+build CMakeFiles/test_lzw.dir/src/lzw/LZW.cpp.obj: CXX_COMPILER__test_lzw_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw/LZW.cpp || cmake_object_order_depends_target_test_lzw
+  DEP_FILE = CMakeFiles\test_lzw.dir\src\lzw\LZW.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_lzw.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_lzw.dir\src\lzw
+  TARGET_COMPILE_PDB = CMakeFiles\test_lzw.dir\
+  TARGET_PDB = test_lzw.pdb
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test_lzw
+
+
+#############################################
+# Link the executable test_lzw.exe
+
+build test_lzw.exe: CXX_EXECUTABLE_LINKER__test_lzw_Debug CMakeFiles/test_lzw.dir/tests/test_lzw.cpp.obj CMakeFiles/test_lzw.dir/src/lzw/LZW.cpp.obj
+  FLAGS = -g
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\test_lzw.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\test_lzw.dir\
+  TARGET_FILE = test_lzw.exe
+  TARGET_IMPLIB = libtest_lzw.dll.a
+  TARGET_PDB = test_lzw.pdb
+
+# =============================================================================
+# Object build statements for EXECUTABLE target test_engine
+
+
+#############################################
+# Order-only phony target for test_engine
+
+build cmake_object_order_depends_target_test_engine: phony || .
+
+build CMakeFiles/test_engine.dir/tests/test_engine.cpp.obj: CXX_COMPILER__test_engine_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/tests/test_engine.cpp || cmake_object_order_depends_target_test_engine
+  DEP_FILE = CMakeFiles\test_engine.dir\tests\test_engine.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_engine.dir\tests
+  TARGET_COMPILE_PDB = CMakeFiles\test_engine.dir\
+  TARGET_PDB = test_engine.pdb
+
+build CMakeFiles/test_engine.dir/src/huffman/Huffman.cpp.obj: CXX_COMPILER__test_engine_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman/Huffman.cpp || cmake_object_order_depends_target_test_engine
+  DEP_FILE = CMakeFiles\test_engine.dir\src\huffman\Huffman.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_engine.dir\src\huffman
+  TARGET_COMPILE_PDB = CMakeFiles\test_engine.dir\
+  TARGET_PDB = test_engine.pdb
+
+build CMakeFiles/test_engine.dir/src/lzw/LZW.cpp.obj: CXX_COMPILER__test_engine_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw/LZW.cpp || cmake_object_order_depends_target_test_engine
+  DEP_FILE = CMakeFiles\test_engine.dir\src\lzw\LZW.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_engine.dir\src\lzw
+  TARGET_COMPILE_PDB = CMakeFiles\test_engine.dir\
+  TARGET_PDB = test_engine.pdb
+
+build CMakeFiles/test_engine.dir/src/engine/CompressionEngine.cpp.obj: CXX_COMPILER__test_engine_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine/CompressionEngine.cpp || cmake_object_order_depends_target_test_engine
+  DEP_FILE = CMakeFiles\test_engine.dir\src\engine\CompressionEngine.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_engine.dir\src\engine
+  TARGET_COMPILE_PDB = CMakeFiles\test_engine.dir\
+  TARGET_PDB = test_engine.pdb
+
+build CMakeFiles/test_engine.dir/src/archive/ArchiveWriter.cpp.obj: CXX_COMPILER__test_engine_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive/ArchiveWriter.cpp || cmake_object_order_depends_target_test_engine
+  DEP_FILE = CMakeFiles\test_engine.dir\src\archive\ArchiveWriter.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_engine.dir\src\archive
+  TARGET_COMPILE_PDB = CMakeFiles\test_engine.dir\
+  TARGET_PDB = test_engine.pdb
+
+build CMakeFiles/test_engine.dir/src/archive/ArchiveReader.cpp.obj: CXX_COMPILER__test_engine_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive/ArchiveReader.cpp || cmake_object_order_depends_target_test_engine
+  DEP_FILE = CMakeFiles\test_engine.dir\src\archive\ArchiveReader.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_engine.dir\src\archive
+  TARGET_COMPILE_PDB = CMakeFiles\test_engine.dir\
+  TARGET_PDB = test_engine.pdb
+
+build CMakeFiles/test_engine.dir/src/benchmark/Benchmark.cpp.obj: CXX_COMPILER__test_engine_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark/Benchmark.cpp || cmake_object_order_depends_target_test_engine
+  DEP_FILE = CMakeFiles\test_engine.dir\src\benchmark\Benchmark.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_engine.dir\src\benchmark
+  TARGET_COMPILE_PDB = CMakeFiles\test_engine.dir\
+  TARGET_PDB = test_engine.pdb
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test_engine
+
+
+#############################################
+# Link the executable test_engine.exe
+
+build test_engine.exe: CXX_EXECUTABLE_LINKER__test_engine_Debug CMakeFiles/test_engine.dir/tests/test_engine.cpp.obj CMakeFiles/test_engine.dir/src/huffman/Huffman.cpp.obj CMakeFiles/test_engine.dir/src/lzw/LZW.cpp.obj CMakeFiles/test_engine.dir/src/engine/CompressionEngine.cpp.obj CMakeFiles/test_engine.dir/src/archive/ArchiveWriter.cpp.obj CMakeFiles/test_engine.dir/src/archive/ArchiveReader.cpp.obj CMakeFiles/test_engine.dir/src/benchmark/Benchmark.cpp.obj
+  FLAGS = -g
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\test_engine.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\test_engine.dir\
+  TARGET_FILE = test_engine.exe
+  TARGET_IMPLIB = libtest_engine.dll.a
+  TARGET_PDB = test_engine.pdb
+
+# =============================================================================
+# Object build statements for EXECUTABLE target test_archive
+
+
+#############################################
+# Order-only phony target for test_archive
+
+build cmake_object_order_depends_target_test_archive: phony || .
+
+build CMakeFiles/test_archive.dir/tests/test_archive.cpp.obj: CXX_COMPILER__test_archive_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/tests/test_archive.cpp || cmake_object_order_depends_target_test_archive
+  DEP_FILE = CMakeFiles\test_archive.dir\tests\test_archive.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_archive.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_archive.dir\tests
+  TARGET_COMPILE_PDB = CMakeFiles\test_archive.dir\
+  TARGET_PDB = test_archive.pdb
+
+build CMakeFiles/test_archive.dir/src/huffman/Huffman.cpp.obj: CXX_COMPILER__test_archive_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman/Huffman.cpp || cmake_object_order_depends_target_test_archive
+  DEP_FILE = CMakeFiles\test_archive.dir\src\huffman\Huffman.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_archive.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_archive.dir\src\huffman
+  TARGET_COMPILE_PDB = CMakeFiles\test_archive.dir\
+  TARGET_PDB = test_archive.pdb
+
+build CMakeFiles/test_archive.dir/src/lzw/LZW.cpp.obj: CXX_COMPILER__test_archive_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw/LZW.cpp || cmake_object_order_depends_target_test_archive
+  DEP_FILE = CMakeFiles\test_archive.dir\src\lzw\LZW.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_archive.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_archive.dir\src\lzw
+  TARGET_COMPILE_PDB = CMakeFiles\test_archive.dir\
+  TARGET_PDB = test_archive.pdb
+
+build CMakeFiles/test_archive.dir/src/engine/CompressionEngine.cpp.obj: CXX_COMPILER__test_archive_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine/CompressionEngine.cpp || cmake_object_order_depends_target_test_archive
+  DEP_FILE = CMakeFiles\test_archive.dir\src\engine\CompressionEngine.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_archive.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_archive.dir\src\engine
+  TARGET_COMPILE_PDB = CMakeFiles\test_archive.dir\
+  TARGET_PDB = test_archive.pdb
+
+build CMakeFiles/test_archive.dir/src/archive/ArchiveWriter.cpp.obj: CXX_COMPILER__test_archive_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive/ArchiveWriter.cpp || cmake_object_order_depends_target_test_archive
+  DEP_FILE = CMakeFiles\test_archive.dir\src\archive\ArchiveWriter.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_archive.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_archive.dir\src\archive
+  TARGET_COMPILE_PDB = CMakeFiles\test_archive.dir\
+  TARGET_PDB = test_archive.pdb
+
+build CMakeFiles/test_archive.dir/src/archive/ArchiveReader.cpp.obj: CXX_COMPILER__test_archive_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive/ArchiveReader.cpp || cmake_object_order_depends_target_test_archive
+  DEP_FILE = CMakeFiles\test_archive.dir\src\archive\ArchiveReader.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_archive.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_archive.dir\src\archive
+  TARGET_COMPILE_PDB = CMakeFiles\test_archive.dir\
+  TARGET_PDB = test_archive.pdb
+
+build CMakeFiles/test_archive.dir/src/benchmark/Benchmark.cpp.obj: CXX_COMPILER__test_archive_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark/Benchmark.cpp || cmake_object_order_depends_target_test_archive
+  DEP_FILE = CMakeFiles\test_archive.dir\src\benchmark\Benchmark.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_archive.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_archive.dir\src\benchmark
+  TARGET_COMPILE_PDB = CMakeFiles\test_archive.dir\
+  TARGET_PDB = test_archive.pdb
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test_archive
+
+
+#############################################
+# Link the executable test_archive.exe
+
+build test_archive.exe: CXX_EXECUTABLE_LINKER__test_archive_Debug CMakeFiles/test_archive.dir/tests/test_archive.cpp.obj CMakeFiles/test_archive.dir/src/huffman/Huffman.cpp.obj CMakeFiles/test_archive.dir/src/lzw/LZW.cpp.obj CMakeFiles/test_archive.dir/src/engine/CompressionEngine.cpp.obj CMakeFiles/test_archive.dir/src/archive/ArchiveWriter.cpp.obj CMakeFiles/test_archive.dir/src/archive/ArchiveReader.cpp.obj CMakeFiles/test_archive.dir/src/benchmark/Benchmark.cpp.obj
+  FLAGS = -g
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\test_archive.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\test_archive.dir\
+  TARGET_FILE = test_archive.exe
+  TARGET_IMPLIB = libtest_archive.dll.a
+  TARGET_PDB = test_archive.pdb
+
+# =============================================================================
+# Object build statements for EXECUTABLE target test_benchmark
+
+
+#############################################
+# Order-only phony target for test_benchmark
+
+build cmake_object_order_depends_target_test_benchmark: phony || .
+
+build CMakeFiles/test_benchmark.dir/tests/test_benchmark.cpp.obj: CXX_COMPILER__test_benchmark_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/tests/test_benchmark.cpp || cmake_object_order_depends_target_test_benchmark
+  DEP_FILE = CMakeFiles\test_benchmark.dir\tests\test_benchmark.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_benchmark.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_benchmark.dir\tests
+  TARGET_COMPILE_PDB = CMakeFiles\test_benchmark.dir\
+  TARGET_PDB = test_benchmark.pdb
+
+build CMakeFiles/test_benchmark.dir/src/huffman/Huffman.cpp.obj: CXX_COMPILER__test_benchmark_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman/Huffman.cpp || cmake_object_order_depends_target_test_benchmark
+  DEP_FILE = CMakeFiles\test_benchmark.dir\src\huffman\Huffman.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_benchmark.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_benchmark.dir\src\huffman
+  TARGET_COMPILE_PDB = CMakeFiles\test_benchmark.dir\
+  TARGET_PDB = test_benchmark.pdb
+
+build CMakeFiles/test_benchmark.dir/src/lzw/LZW.cpp.obj: CXX_COMPILER__test_benchmark_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw/LZW.cpp || cmake_object_order_depends_target_test_benchmark
+  DEP_FILE = CMakeFiles\test_benchmark.dir\src\lzw\LZW.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_benchmark.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_benchmark.dir\src\lzw
+  TARGET_COMPILE_PDB = CMakeFiles\test_benchmark.dir\
+  TARGET_PDB = test_benchmark.pdb
+
+build CMakeFiles/test_benchmark.dir/src/engine/CompressionEngine.cpp.obj: CXX_COMPILER__test_benchmark_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine/CompressionEngine.cpp || cmake_object_order_depends_target_test_benchmark
+  DEP_FILE = CMakeFiles\test_benchmark.dir\src\engine\CompressionEngine.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_benchmark.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_benchmark.dir\src\engine
+  TARGET_COMPILE_PDB = CMakeFiles\test_benchmark.dir\
+  TARGET_PDB = test_benchmark.pdb
+
+build CMakeFiles/test_benchmark.dir/src/archive/ArchiveWriter.cpp.obj: CXX_COMPILER__test_benchmark_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive/ArchiveWriter.cpp || cmake_object_order_depends_target_test_benchmark
+  DEP_FILE = CMakeFiles\test_benchmark.dir\src\archive\ArchiveWriter.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_benchmark.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_benchmark.dir\src\archive
+  TARGET_COMPILE_PDB = CMakeFiles\test_benchmark.dir\
+  TARGET_PDB = test_benchmark.pdb
+
+build CMakeFiles/test_benchmark.dir/src/archive/ArchiveReader.cpp.obj: CXX_COMPILER__test_benchmark_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive/ArchiveReader.cpp || cmake_object_order_depends_target_test_benchmark
+  DEP_FILE = CMakeFiles\test_benchmark.dir\src\archive\ArchiveReader.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_benchmark.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_benchmark.dir\src\archive
+  TARGET_COMPILE_PDB = CMakeFiles\test_benchmark.dir\
+  TARGET_PDB = test_benchmark.pdb
+
+build CMakeFiles/test_benchmark.dir/src/benchmark/Benchmark.cpp.obj: CXX_COMPILER__test_benchmark_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark/Benchmark.cpp || cmake_object_order_depends_target_test_benchmark
+  DEP_FILE = CMakeFiles\test_benchmark.dir\src\benchmark\Benchmark.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_benchmark.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_benchmark.dir\src\benchmark
+  TARGET_COMPILE_PDB = CMakeFiles\test_benchmark.dir\
+  TARGET_PDB = test_benchmark.pdb
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test_benchmark
+
+
+#############################################
+# Link the executable test_benchmark.exe
+
+build test_benchmark.exe: CXX_EXECUTABLE_LINKER__test_benchmark_Debug CMakeFiles/test_benchmark.dir/tests/test_benchmark.cpp.obj CMakeFiles/test_benchmark.dir/src/huffman/Huffman.cpp.obj CMakeFiles/test_benchmark.dir/src/lzw/LZW.cpp.obj CMakeFiles/test_benchmark.dir/src/engine/CompressionEngine.cpp.obj CMakeFiles/test_benchmark.dir/src/archive/ArchiveWriter.cpp.obj CMakeFiles/test_benchmark.dir/src/archive/ArchiveReader.cpp.obj CMakeFiles/test_benchmark.dir/src/benchmark/Benchmark.cpp.obj
+  FLAGS = -g
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\test_benchmark.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\test_benchmark.dir\
+  TARGET_FILE = test_benchmark.exe
+  TARGET_IMPLIB = libtest_benchmark.dll.a
+  TARGET_PDB = test_benchmark.pdb
+
+# =============================================================================
+# Object build statements for EXECUTABLE target test_roundtrip
+
+
+#############################################
+# Order-only phony target for test_roundtrip
+
+build cmake_object_order_depends_target_test_roundtrip: phony || .
+
+build CMakeFiles/test_roundtrip.dir/tests/test_roundtrip.cpp.obj: CXX_COMPILER__test_roundtrip_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/tests/test_roundtrip.cpp || cmake_object_order_depends_target_test_roundtrip
+  DEP_FILE = CMakeFiles\test_roundtrip.dir\tests\test_roundtrip.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_roundtrip.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_roundtrip.dir\tests
+  TARGET_COMPILE_PDB = CMakeFiles\test_roundtrip.dir\
+  TARGET_PDB = test_roundtrip.pdb
+
+build CMakeFiles/test_roundtrip.dir/src/huffman/Huffman.cpp.obj: CXX_COMPILER__test_roundtrip_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman/Huffman.cpp || cmake_object_order_depends_target_test_roundtrip
+  DEP_FILE = CMakeFiles\test_roundtrip.dir\src\huffman\Huffman.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_roundtrip.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_roundtrip.dir\src\huffman
+  TARGET_COMPILE_PDB = CMakeFiles\test_roundtrip.dir\
+  TARGET_PDB = test_roundtrip.pdb
+
+build CMakeFiles/test_roundtrip.dir/src/lzw/LZW.cpp.obj: CXX_COMPILER__test_roundtrip_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw/LZW.cpp || cmake_object_order_depends_target_test_roundtrip
+  DEP_FILE = CMakeFiles\test_roundtrip.dir\src\lzw\LZW.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_roundtrip.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_roundtrip.dir\src\lzw
+  TARGET_COMPILE_PDB = CMakeFiles\test_roundtrip.dir\
+  TARGET_PDB = test_roundtrip.pdb
+
+build CMakeFiles/test_roundtrip.dir/src/engine/CompressionEngine.cpp.obj: CXX_COMPILER__test_roundtrip_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine/CompressionEngine.cpp || cmake_object_order_depends_target_test_roundtrip
+  DEP_FILE = CMakeFiles\test_roundtrip.dir\src\engine\CompressionEngine.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_roundtrip.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_roundtrip.dir\src\engine
+  TARGET_COMPILE_PDB = CMakeFiles\test_roundtrip.dir\
+  TARGET_PDB = test_roundtrip.pdb
+
+build CMakeFiles/test_roundtrip.dir/src/archive/ArchiveWriter.cpp.obj: CXX_COMPILER__test_roundtrip_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive/ArchiveWriter.cpp || cmake_object_order_depends_target_test_roundtrip
+  DEP_FILE = CMakeFiles\test_roundtrip.dir\src\archive\ArchiveWriter.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_roundtrip.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_roundtrip.dir\src\archive
+  TARGET_COMPILE_PDB = CMakeFiles\test_roundtrip.dir\
+  TARGET_PDB = test_roundtrip.pdb
+
+build CMakeFiles/test_roundtrip.dir/src/archive/ArchiveReader.cpp.obj: CXX_COMPILER__test_roundtrip_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive/ArchiveReader.cpp || cmake_object_order_depends_target_test_roundtrip
+  DEP_FILE = CMakeFiles\test_roundtrip.dir\src\archive\ArchiveReader.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_roundtrip.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_roundtrip.dir\src\archive
+  TARGET_COMPILE_PDB = CMakeFiles\test_roundtrip.dir\
+  TARGET_PDB = test_roundtrip.pdb
+
+build CMakeFiles/test_roundtrip.dir/src/benchmark/Benchmark.cpp.obj: CXX_COMPILER__test_roundtrip_unscanned_Debug C$:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark/Benchmark.cpp || cmake_object_order_depends_target_test_roundtrip
+  DEP_FILE = CMakeFiles\test_roundtrip.dir\src\benchmark\Benchmark.cpp.obj.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/huffman -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/lzw -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/io -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/engine -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/archive -IC:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/src/benchmark
+  OBJECT_DIR = CMakeFiles\test_roundtrip.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_roundtrip.dir\src\benchmark
+  TARGET_COMPILE_PDB = CMakeFiles\test_roundtrip.dir\
+  TARGET_PDB = test_roundtrip.pdb
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test_roundtrip
+
+
+#############################################
+# Link the executable test_roundtrip.exe
+
+build test_roundtrip.exe: CXX_EXECUTABLE_LINKER__test_roundtrip_Debug CMakeFiles/test_roundtrip.dir/tests/test_roundtrip.cpp.obj CMakeFiles/test_roundtrip.dir/src/huffman/Huffman.cpp.obj CMakeFiles/test_roundtrip.dir/src/lzw/LZW.cpp.obj CMakeFiles/test_roundtrip.dir/src/engine/CompressionEngine.cpp.obj CMakeFiles/test_roundtrip.dir/src/archive/ArchiveWriter.cpp.obj CMakeFiles/test_roundtrip.dir/src/archive/ArchiveReader.cpp.obj CMakeFiles/test_roundtrip.dir/src/benchmark/Benchmark.cpp.obj
+  FLAGS = -g
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\test_roundtrip.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\test_roundtrip.dir\
+  TARGET_FILE = test_roundtrip.exe
+  TARGET_IMPLIB = libtest_roundtrip.dll.a
+  TARGET_PDB = test_roundtrip.pdb
 
 
 #############################################
@@ -124,6 +616,18 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 build forge: phony forge.exe
 
+build test_archive: phony test_archive.exe
+
+build test_benchmark: phony test_benchmark.exe
+
+build test_engine: phony test_engine.exe
+
+build test_huffman: phony test_huffman.exe
+
+build test_lzw: phony test_lzw.exe
+
+build test_roundtrip: phony test_roundtrip.exe
+
 # =============================================================================
 # Folder targets.
 
@@ -132,7 +636,7 @@ build forge: phony forge.exe
 #############################################
 # Folder: C:/01_Rithanya/06_College/SEM_5/DAA_Lab/Package/forge/build
 
-build all: phony forge.exe
+build all: phony forge.exe test_huffman.exe test_lzw.exe test_engine.exe test_archive.exe test_benchmark.exe test_roundtrip.exe
 
 # =============================================================================
 # Built-in targets

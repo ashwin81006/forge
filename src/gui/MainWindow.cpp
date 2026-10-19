@@ -9,6 +9,7 @@
 #include <QMessageBox>
 #include <QHeaderView>
 #include <QApplication>
+#include <fstream>
 #include <thread>
 
 namespace forge {
