@@ -1,0 +1,29 @@
+# Build output
+out/
+
+# Visual Studio
+.vs/
+*.vcxproj.user
+*.suo
+*.sdf
+*.opensdf
+*.opendb
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+
+# Compiled binaries
+*.exe
+*.obj
+*.o
+*.pdb
+*.ilk
+*.lib
+*.dll
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
