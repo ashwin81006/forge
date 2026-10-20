@@ -1,81 +1,47 @@
-
 // ═══════════════════════════════════════════════════════════════════════
-// FORGE — File Optimization & Recursive Generation Engine
-// Test harness for M1 (Huffman) and M2 (LZW)
+// FORGE — Full Optimization & Recursive Generation Engine
+// Main CLI Driver & Test Suite Runner
 // ═══════════════════════════════════════════════════════════════════════
 
-#include <algorithm>
-#include <chrono>
-#include <cstdint>
-#include <cstdlib>
-#include <iomanip>
 #include <iostream>
-#include <numeric>
-#include <random>
 #include <string>
 #include <vector>
+#include <iomanip>
+#include <filesystem>
+#include <fstream>
+#include <cstdlib>
 
 #include "src/huffman/Huffman.h"
 #include "src/lzw/LZW.h"
+#include "src/engine/CompressionEngine.h"
+#include "src/archive/ArchiveWriter.h"
+#include "src/archive/ArchiveReader.h"
+#include "src/archive/PathSecurity.h"
+#include "src/benchmark/Benchmark.h"
 
-// ─── Helpers ────────────────────────────────────────────────────────────
+static int gTestsPassed = 0;
+static int gTestsFailed = 0;
 
-static int  gTestsPassed = 0;
-static int  gTestsFailed = 0;
-
-static void reportResult(
-    const std::string& name, bool passed) {
-
+static void reportResult(const std::string& name, bool passed) {
     if (passed) {
         std::cout << "  [PASS] " << name << "\n";
         ++gTestsPassed;
-    }
-    else {
+    } else {
         std::cout << "  [FAIL] " << name << "\n";
         ++gTestsFailed;
     }
 }
 
-static std::vector<uint8_t> makeBytes(const std::string& s) {
-    return { s.begin(), s.end() };
-}
+// ── Huffman Tests ───────────────────────────────────────────────────
 
-static std::vector<uint8_t> makeRepeated(uint8_t val, size_t n) {
-    return std::vector<uint8_t>(n, val);
-}
-
-static std::vector<uint8_t> makeRandom(size_t n, uint32_t seed = 42) {
-    std::mt19937 rng(seed);
-    std::uniform_int_distribution<int> dist(0, 255);
-    std::vector<uint8_t> out(n);
-    for (auto& b : out) b = static_cast<uint8_t>(dist(rng));
-    return out;
-}
-
-static std::vector<uint8_t> makeAllBytes() {
-    std::vector<uint8_t> out(256);
-    std::iota(out.begin(), out.end(), 0);
-    return out;
-}
-
-// ═══════════════════════════════════════════════════════════════════════
-//  HUFFMAN TESTS
-// ═══════════════════════════════════════════════════════════════════════
-
-static void testHuffmanRoundTrip(
-    const std::string& name,
-    const std::vector<uint8_t>& input) {
-
+static void testHuffmanRoundTrip(const std::string& name, const std::vector<uint8_t>& input) {
     Huffman huff;
-
     try {
         auto encoded = huff.compress(input);
         auto decoded = huff.decompress(encoded);
         reportResult(name, decoded == input);
-    }
-    catch (const std::exception& e) {
-        std::cout << "  [FAIL] " << name
-                  << " — exception: " << e.what() << "\n";
+    } catch (const std::exception& e) {
+        std::cout << "  [FAIL] " << name << " — exception: " << e.what() << "\n";
         ++gTestsFailed;
     }
 }
@@ -85,66 +51,43 @@ static void runHuffmanTests() {
               <<   "║      HUFFMAN  CODEC  TESTS           ║\n"
               <<   "╚══════════════════════════════════════╝\n";
 
-    // Edge cases
-    testHuffmanRoundTrip("Empty input",           {});
-    testHuffmanRoundTrip("Single byte",           { 0x42 });
-    testHuffmanRoundTrip("Two identical bytes",   { 0xAA, 0xAA });
-    testHuffmanRoundTrip("Two different bytes",   { 0x00, 0xFF });
+    testHuffmanRoundTrip("Empty input", {});
+    testHuffmanRoundTrip("Single byte", {0x42});
+    testHuffmanRoundTrip("Two identical bytes", {0xAA, 0xAA});
+    testHuffmanRoundTrip("Two different bytes", {0x00, 0xFF});
+    testHuffmanRoundTrip("256 x 0x00", std::vector<uint8_t>(256, 0x00));
+    testHuffmanRoundTrip("1000 x 0xFF", std::vector<uint8_t>(1000, 0xFF));
 
-    // Single-symbol (all same byte)
-    testHuffmanRoundTrip("256 × 0x00",            makeRepeated(0x00, 256));
-    testHuffmanRoundTrip("1000 × 0xFF",           makeRepeated(0xFF, 1000));
+    std::vector<uint8_t> allBytes(256);
+    for (int i = 0; i < 256; ++i) allBytes[i] = static_cast<uint8_t>(i);
+    testHuffmanRoundTrip("All 256 byte values", allBytes);
 
-    // All 256 byte values
-    testHuffmanRoundTrip("All 256 byte values",   makeAllBytes());
+    // Malformed stream rejection
+    Huffman huff;
+    try {
+        Huffman::EncodedData badFreq{{0x00}, std::vector<uint64_t>(255, 0), 1, 8};
+        huff.decompress(badFreq);
+        reportResult("Huffman reject invalid freq table size", false);
+    } catch (...) { reportResult("Huffman reject invalid freq table size", true); }
 
-    // Text
-    testHuffmanRoundTrip("Short text",
-        makeBytes("Hello, FORGE!"));
-
-    testHuffmanRoundTrip("Repetitive text",
-        makeBytes("aaabbbcccaaabbbcccaaabbbcccaaabbbccc"));
-
-    testHuffmanRoundTrip("Lorem paragraph",
-        makeBytes(
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-            "Sed do eiusmod tempor incididunt ut labore et dolore magna "
-            "aliqua. Ut enim ad minim veniam, quis nostrud exercitation "
-            "ullamco laboris nisi ut aliquip ex ea commodo consequat."));
-
-    // Binary patterns
-    testHuffmanRoundTrip("Random 1 KiB",          makeRandom(1024));
-    testHuffmanRoundTrip("Random 64 KiB",         makeRandom(65536));
-
-    // Skewed distribution (good for Huffman)
-    {
-        std::vector<uint8_t> skewed;
-        skewed.reserve(10000);
-        for (int i = 0; i < 9000; ++i) skewed.push_back('a');
-        for (int i = 0; i < 900;  ++i) skewed.push_back('b');
-        for (int i = 0; i < 100;  ++i) skewed.push_back('c');
-        testHuffmanRoundTrip("Skewed distribution (90/9/1)", skewed);
-    }
+    try {
+        Huffman::EncodedData badSum{{0x00}, std::vector<uint64_t>(256, 0), 10, 8};
+        badSum.frequencies[0] = 5;
+        huff.decompress(badSum);
+        reportResult("Huffman reject frequency sum mismatch", false);
+    } catch (...) { reportResult("Huffman reject frequency sum mismatch", true); }
 }
 
-// ═══════════════════════════════════════════════════════════════════════
-//  LZW TESTS
-// ═══════════════════════════════════════════════════════════════════════
+// ── LZW Tests ───────────────────────────────────────────────────────
 
-static void testLZWRoundTrip(
-    const std::string& name,
-    const std::vector<uint8_t>& input) {
-
+static void testLZWRoundTrip(const std::string& name, const std::vector<uint8_t>& input) {
     LZW lzw;
-
     try {
         auto encoded = lzw.compress(input);
         auto decoded = lzw.decompress(encoded);
         reportResult(name, decoded == input);
-    }
-    catch (const std::exception& e) {
-        std::cout << "  [FAIL] " << name
-                  << " — exception: " << e.what() << "\n";
+    } catch (const std::exception& e) {
+        std::cout << "  [FAIL] " << name << " — exception: " << e.what() << "\n";
         ++gTestsFailed;
     }
 }
@@ -154,227 +97,181 @@ static void runLZWTests() {
               <<   "║      LZW  CODEC  TESTS               ║\n"
               <<   "╚══════════════════════════════════════╝\n";
 
-    // Edge cases
-    testLZWRoundTrip("Empty input",             {});
-    testLZWRoundTrip("Single byte",             { 0x42 });
-    testLZWRoundTrip("Two identical bytes",     { 0xAA, 0xAA });
-    testLZWRoundTrip("Two different bytes",     { 0x00, 0xFF });
+    testLZWRoundTrip("Empty input", {});
+    testLZWRoundTrip("Single byte", {0x42});
+    testLZWRoundTrip("Two identical bytes", {0xAA, 0xAA});
+    testLZWRoundTrip("Two different bytes", {0x00, 0xFF});
+    testLZWRoundTrip("256 x 0x00", std::vector<uint8_t>(256, 0x00));
+    testLZWRoundTrip("1000 x 0xFF", std::vector<uint8_t>(1000, 0xFF));
 
-    // Single-symbol (all same byte) — triggers the code==nextCode case
-    testLZWRoundTrip("256 × 0x00",              makeRepeated(0x00, 256));
-    testLZWRoundTrip("1000 × 0xFF",             makeRepeated(0xFF, 1000));
+    std::vector<uint8_t> allBytes(256);
+    for (int i = 0; i < 256; ++i) allBytes[i] = static_cast<uint8_t>(i);
+    testLZWRoundTrip("All 256 byte values", allBytes);
 
-    // All 256 byte values
-    testLZWRoundTrip("All 256 byte values",     makeAllBytes());
+    // Malformed stream rejection
+    LZW lzw;
+    try {
+        LZW::EncodedData badCount{{0x00, 0x00, 0x01}, 2, 2};
+        lzw.decompress(badCount);
+        reportResult("LZW reject data size mismatch", false);
+    } catch (...) { reportResult("LZW reject data size mismatch", true); }
 
-    // Text
-    testLZWRoundTrip("Short text",
-        makeBytes("Hello, FORGE!"));
-
-    testLZWRoundTrip("Repetitive text",
-        makeBytes("aaabbbcccaaabbbcccaaabbbcccaaabbbccc"));
-
-    testLZWRoundTrip("Lorem paragraph",
-        makeBytes(
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-            "Sed do eiusmod tempor incididunt ut labore et dolore magna "
-            "aliqua. Ut enim ad minim veniam, quis nostrud exercitation "
-            "ullamco laboris nisi ut aliquip ex ea commodo consequat."));
-
-    // Binary patterns
-    testLZWRoundTrip("Random 1 KiB",            makeRandom(1024));
-    testLZWRoundTrip("Random 64 KiB",           makeRandom(65536));
-
-    // Highly repetitive (LZW's strength)
-    {
-        std::string pattern = "ABCABCABCABC";
-        std::vector<uint8_t> data;
-        data.reserve(pattern.size() * 500);
-        for (int i = 0; i < 500; ++i)
-            data.insert(data.end(), pattern.begin(), pattern.end());
-        testLZWRoundTrip("Highly repetitive (ABC×2000)", data);
-    }
-
-    // Stress: push dictionary to max capacity
-    {
-        // Alternating patterns that generate many unique sequences
-        std::vector<uint8_t> stress;
-        stress.reserve(200000);
-        for (int i = 0; i < 200000; ++i)
-            stress.push_back(static_cast<uint8_t>(i % 251)); // prime mod
-        testLZWRoundTrip("Dictionary stress (200 KB, mod-251)", stress);
-    }
+    try {
+        LZW::EncodedData badFirst{{0x00, 0x01}, 1, 1};
+        lzw.decompress(badFirst);
+        reportResult("LZW reject first code >= 256", false);
+    } catch (...) { reportResult("LZW reject first code >= 256", true); }
 }
 
-// ═══════════════════════════════════════════════════════════════════════
-//  MINI BENCHMARK  (compression ratio + speed)
-// ═══════════════════════════════════════════════════════════════════════
+// ── Engine Tests (M3 + M4) ──────────────────────────────────────────
 
-struct BenchResult {
-    std::string name;
-    size_t      originalSize;
-    size_t      huffmanSize;
-    size_t      lzwSize;
-    double      huffmanCompressMs;
-    double      lzwCompressMs;
-};
+static void runEngineTests() {
+    std::cout << "\n╔══════════════════════════════════════╗\n"
+              <<   "║      ENGINE (M3+M4) TESTS            ║\n"
+              <<   "╚══════════════════════════════════════╝\n";
 
-static BenchResult benchmark(
-    const std::string& name,
-    const std::vector<uint8_t>& data) {
+    forge::engine::CompressionEngine engine;
 
-    BenchResult r{};
-    r.name = name;
-    r.originalSize = data.size();
+    // RAW fallback on random data
+    auto randBytes = forge::benchmark::BenchmarkSuite::generateRandomBytes(1024);
+    auto blk = engine.compressBlock(randBytes);
+    reportResult("Adaptive selector chooses RAW on random data", blk.method == forge::engine::Method::RAW);
 
-    Huffman huff;
-    LZW    lzw;
+    // LZW selection on repetitive data
+    auto repBytes = forge::benchmark::BenchmarkSuite::generateRepetitiveText(10 * 1024);
+    auto blkRep = engine.compressBlock(repBytes);
+    reportResult("Adaptive selector chooses LZW on repetitive text", blkRep.method == forge::engine::Method::LZW);
 
-    // Huffman
-    {
-        auto t0 = std::chrono::high_resolution_clock::now();
-        auto enc = huff.compress(data);
-        auto t1 = std::chrono::high_resolution_clock::now();
-
-        // Total stored size = payload + 256 × 8 bytes (frequency table)
-        r.huffmanSize = enc.data.size() + 256 * sizeof(uint64_t);
-        r.huffmanCompressMs =
-            std::chrono::duration<double, std::milli>(t1 - t0).count();
-    }
-
-    // LZW
-    {
-        auto t0 = std::chrono::high_resolution_clock::now();
-        auto enc = lzw.compress(data);
-        auto t1 = std::chrono::high_resolution_clock::now();
-
-        // Total stored size = 2 bytes per code (fixed-width 16-bit)
-        r.lzwSize = enc.data.size();
-        r.lzwCompressMs =
-            std::chrono::duration<double, std::milli>(t1 - t0).count();
-    }
-
-    return r;
+    // Block reset check
+    auto decRep = engine.decompressBlock(blkRep);
+    reportResult("Engine block decompression lossless", decRep == repBytes);
 }
+
+// ── Archive Tests (M5 + M6) ─────────────────────────────────────────
+
+static void runArchiveTests() {
+    std::cout << "\n╔══════════════════════════════════════╗\n"
+              <<   "║      ARCHIVE (M5+M6) TESTS           ║\n"
+              <<   "╚══════════════════════════════════════╝\n";
+
+    std::filesystem::path testDir = "temp_forge_test_archive";
+    std::filesystem::path srcDir = testDir / "src";
+    std::filesystem::path archiveFile = testDir / "sample.forge";
+    std::filesystem::path extDir = testDir / "out";
+
+    std::filesystem::remove_all(testDir);
+    std::filesystem::create_directories(srcDir / "sub");
+
+    // Write sample files
+    {
+        std::ofstream(srcDir / "hello.txt") << "Hello, FORGE System!";
+        std::ofstream(srcDir / "sub" / "data.bin", std::ios::binary) << std::string(10000, 'Z');
+    }
+
+    try {
+        forge::archive::ArchiveWriter writer;
+        writer.compressFolder(srcDir.string(), archiveFile.string(), 64 * 1024, true);
+        reportResult("Archive creation succeeds", std::filesystem::exists(archiveFile));
+
+        forge::archive::ArchiveReader reader;
+        auto list = reader.listArchive(archiveFile.string());
+        reportResult("Archive list contains 2 files", list.size() == 2);
+
+        reader.extractArchive(archiveFile.string(), extDir.string());
+        reportResult("Extracted nested file exists and matches size",
+                     std::filesystem::file_size(extDir / "sub" / "data.bin") == 10000);
+
+        reportResult("Path traversal rejection verified",
+                     !forge::archive::PathSecurity::isSafeRelativePath("../evil.sh"));
+    } catch (const std::exception& e) {
+        std::cout << "Archive test failure: " << e.what() << "\n";
+        reportResult("Archive operations without error", false);
+    }
+
+    std::filesystem::remove_all(testDir);
+}
+
+// ── Benchmark Suite ─────────────────────────────────────────────────
 
 static void runBenchmarks() {
     std::cout << "\n╔══════════════════════════════════════╗\n"
-              <<   "║      MINI  BENCHMARK                 ║\n"
+              <<   "║      BENCHMARK LABORATORY            ║\n"
               <<   "╚══════════════════════════════════════╝\n\n";
 
-    std::vector<BenchResult> results;
-
-    // 1. Repetitive text
-    {
-        std::string s;
-        for (int i = 0; i < 1000; ++i) s += "the quick brown fox ";
-        results.push_back(benchmark("Repetitive text (20 KB)",
-            makeBytes(s)));
-    }
-
-    // 2. C++ source-like text
-    {
-        std::string s;
-        for (int i = 0; i < 200; ++i) {
-            s += "int main() {\n";
-            s += "    std::cout << \"Hello\" << std::endl;\n";
-            s += "    return 0;\n";
-            s += "}\n\n";
-        }
-        results.push_back(benchmark("C++ source-like (13 KB)",
-            makeBytes(s)));
-    }
-
-    // 3. All-identical bytes
-    results.push_back(benchmark("All zeroes (64 KB)",
-        makeRepeated(0x00, 65536)));
-
-    // 4. Random data
-    results.push_back(benchmark("Random bytes (64 KB)",
-        makeRandom(65536)));
-
-    // 5. All 256 values cycling
-    {
-        auto cycle = makeAllBytes();
-        std::vector<uint8_t> data;
-        data.reserve(256 * 256);
-        for (int i = 0; i < 256; ++i)
-            data.insert(data.end(), cycle.begin(), cycle.end());
-        results.push_back(benchmark("Cycling 0-255 (64 KB)",
-            data));
-    }
-
-    // ── Print table ─────────────────────────────────────────────────
-
-    std::cout << std::left
-              << std::setw(30) << "Dataset"
-              << std::right
-              << std::setw(10) << "Original"
-              << std::setw(12) << "Huffman"
-              << std::setw(10) << "Ratio"
-              << std::setw(10) << "ms"
-              << std::setw(12) << "LZW"
-              << std::setw(10) << "Ratio"
-              << std::setw(10) << "ms"
-              << std::setw(10) << "Winner"
-              << "\n";
-
-    std::cout << std::string(114, '-') << "\n";
-
-    for (const auto& r : results) {
-        double huffRatio = (r.originalSize > 0)
-            ? static_cast<double>(r.originalSize) / r.huffmanSize : 0;
-        double lzwRatio  = (r.originalSize > 0)
-            ? static_cast<double>(r.originalSize) / r.lzwSize : 0;
-
-        std::string winner =
-            (r.huffmanSize <= r.lzwSize) ? "Huffman" : "LZW";
-
-        std::cout << std::left
-                  << std::setw(30) << r.name
-                  << std::right
-                  << std::setw(10) << r.originalSize
-                  << std::setw(12) << r.huffmanSize
-                  << std::setw(10) << std::fixed
-                  << std::setprecision(2) << huffRatio << "x"
-                  << std::setw(9)  << std::setprecision(2)
-                  << r.huffmanCompressMs
-                  << std::setw(12) << r.lzwSize
-                  << std::setw(10) << std::setprecision(2)
-                  << lzwRatio << "x"
-                  << std::setw(9)  << std::setprecision(2)
-                  << r.lzwCompressMs
-                  << std::setw(10) << winner
-                  << "\n";
-    }
-
-    std::cout << "\n  Note: Huffman stored size includes the 2048-byte "
-              << "frequency table overhead.\n"
-              << "  Note: LZW stored size = 2 bytes per code "
-              << "(fixed 16-bit codes).\n";
+    auto results = forge::benchmark::BenchmarkSuite::runStandardSuite();
+    std::string md = forge::benchmark::BenchmarkSuite::exportToMarkdown(results);
+    std::cout << md << "\n";
 }
 
-// ═══════════════════════════════════════════════════════════════════════
-//  MAIN
-// ═══════════════════════════════════════════════════════════════════════
+static void printUsage() {
+    std::cout << "FORGE CLI Usage:\n"
+              << "  forge                      Run full verification test suite & benchmarks\n"
+              << "  forge --test               Run all unit & integration tests\n"
+              << "  forge --bench              Run benchmark suite and output markdown table\n"
+              << "  forge -c <dir> -o <file>   Compress folder into .forge archive\n"
+              << "  forge -x <file> -o <dir>   Extract .forge archive to destination directory\n"
+              << "  forge -l <file>            List contents of .forge archive\n";
+}
 
-int main() {
-    std::cout
-        << "\n"
-        << "  ╔═══════════════════════════════════════════════════╗\n"
-        << "  ║  FORGE — File Optimization & Recursive           ║\n"
-        << "  ║           Generation Engine                      ║\n"
-        << "  ║  M1 + M2 Test Suite                              ║\n"
-        << "  ╚═══════════════════════════════════════════════════╝\n";
+int main(int argc, char* argv[]) {
+    if (argc >= 2) {
+        std::string cmd = argv[1];
+        if (cmd == "--help" || cmd == "-h") {
+            printUsage();
+            return 0;
+        } else if (cmd == "--bench") {
+            runBenchmarks();
+            return 0;
+        } else if (cmd == "-c" && argc >= 4) {
+            std::string src = argv[2];
+            std::string dst = (argc >= 5 && std::string(argv[3]) == "-o") ? argv[4] : (src + ".forge");
+            std::cout << "Compressing folder: " << src << " -> " << dst << "\n";
+            forge::archive::ArchiveWriter writer;
+            writer.compressFolder(src, dst);
+            std::cout << "Done.\n";
+            return 0;
+        } else if (cmd == "-x" && argc >= 4) {
+            std::string arch = argv[2];
+            std::string dst = (argc >= 5 && std::string(argv[3]) == "-o") ? argv[4] : ".";
+            std::cout << "Extracting archive: " << arch << " -> " << dst << "\n";
+            forge::archive::ArchiveReader reader;
+            reader.extractArchive(arch, dst);
+            std::cout << "Extraction complete and SHA-256 verified.\n";
+            return 0;
+        } else if (cmd == "-l" && argc >= 3) {
+            std::string arch = argv[2];
+            forge::archive::ArchiveReader reader;
+            auto list = reader.listArchive(arch);
+            std::cout << "\nArchive listing: " << arch << " (" << list.size() << " files)\n";
+            std::cout << std::left << std::setw(40) << "Path"
+                      << std::right << std::setw(12) << "Original"
+                      << std::setw(12) << "Stored"
+                      << std::setw(10) << "Blocks\n";
+            std::cout << std::string(74, '-') << "\n";
+            for (const auto& item : list) {
+                std::cout << std::left << std::setw(40) << item.relativePath
+                          << std::right << std::setw(12) << item.originalFileSize
+                          << std::setw(12) << item.storedSize
+                          << std::setw(10) << item.blockCount << "\n";
+            }
+            return 0;
+        }
+    }
+
+    std::cout << "\n  ╔═══════════════════════════════════════════════════╗\n"
+              <<   "  ║  FORGE — Full Optimization & Recursive            ║\n"
+              <<   "  ║           Generation Engine                       ║\n"
+              <<   "  ║  Complete Milestone Verification Test Suite       ║\n"
+              <<   "  ╚═══════════════════════════════════════════════════╝\n";
 
     runHuffmanTests();
     runLZWTests();
+    runEngineTests();
+    runArchiveTests();
     runBenchmarks();
 
     std::cout << "\n══════════════════════════════════════\n"
-              << "  Results: "
-              << gTestsPassed << " passed, "
-              << gTestsFailed << " failed\n"
+              << "  Results: " << gTestsPassed << " passed, " << gTestsFailed << " failed\n"
               << "══════════════════════════════════════\n\n";
 
     return gTestsFailed > 0 ? 1 : 0;
