@@ -7,13 +7,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Include directories
+include_directories(.)
 include_directories(src)
 include_directories(src/huffman)
 include_directories(src/lzw)
 include_directories(src/io)
 include_directories(src/engine)
 include_directories(src/archive)
-include_directories(src/benchmark)
+include_directories(src/gui)
 
 # Core engine sources
 set(FORGE_ENGINE_SOURCES
@@ -22,47 +23,53 @@ set(FORGE_ENGINE_SOURCES
     src/engine/CompressionEngine.cpp
     src/archive/ArchiveWriter.cpp
     src/archive/ArchiveReader.cpp
-    src/benchmark/Benchmark.cpp
 )
 
-# Main executable (CLI & test runner)
-add_executable(forge
-    main.cpp
-    ${FORGE_ENGINE_SOURCES}
-)
+# Automatically locate Qt6 on Windows
+if(WIN32)
+    # If CMAKE_PREFIX_PATH was specified as C:/Qt/6.9.3, also check the kit folder
+    if(DEFINED CMAKE_PREFIX_PATH AND EXISTS "${CMAKE_PREFIX_PATH}/mingw_64")
+        list(APPEND CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH}/mingw_64")
+    endif()
 
-# Modular test targets
-add_executable(test_huffman tests/test_huffman.cpp src/huffman/Huffman.cpp)
-add_executable(test_lzw tests/test_lzw.cpp src/lzw/LZW.cpp)
-add_executable(test_engine tests/test_engine.cpp ${FORGE_ENGINE_SOURCES})
-add_executable(test_archive tests/test_archive.cpp ${FORGE_ENGINE_SOURCES})
-add_executable(test_benchmark tests/test_benchmark.cpp ${FORGE_ENGINE_SOURCES})
-add_executable(test_roundtrip tests/test_roundtrip.cpp ${FORGE_ENGINE_SOURCES})
+    list(APPEND CMAKE_PREFIX_PATH
+        "C:/Qt/6.9.3/mingw_64"
+        "C:/Qt/6.9.3"
+    )
+    file(GLOB QT6_CANDIDATES "C:/Qt/6.*/mingw_64" "C:/Qt/6.*/msvc*")
+    if(QT6_CANDIDATES)
+        list(APPEND CMAKE_PREFIX_PATH ${QT6_CANDIDATES})
+    endif()
+endif()
 
-# Optional Qt GUI (Engine runs without Qt)
+# Qt GUI Application (Qt6 preferred, fallback to Qt5)
 find_package(Qt6 COMPONENTS Widgets QUIET)
 if(NOT Qt6_FOUND)
     find_package(Qt5 COMPONENTS Widgets QUIET)
 endif()
 
+if(NOT Qt6_FOUND AND NOT Qt5_FOUND)
+    message(FATAL_ERROR
+        "\n========================================================================\n"
+        "Qt could not be found automatically by CMake.\n"
+        "Please specify your Qt installation path using:\n"
+        "  cmake -S . -B build -DCMAKE_PREFIX_PATH=\"C:/Qt/6.9.3/mingw_64\"\n"
+        "Or simply run 'run_gui.bat' which configures this automatically.\n"
+        "========================================================================\n")
+endif()
+
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
+add_executable(forge
+    src/gui/main_gui.cpp
+    src/gui/MainWindow.cpp
+    ${FORGE_ENGINE_SOURCES}
+)
+
 if(Qt6_FOUND)
-    set(CMAKE_AUTOMOC ON)
-    set(CMAKE_AUTORCC ON)
-    set(CMAKE_AUTOUIC ON)
-    add_executable(forge_gui
-        src/gui/main_gui.cpp
-        src/gui/MainWindow.cpp
-        ${FORGE_ENGINE_SOURCES}
-    )
-    target_link_libraries(forge_gui PRIVATE Qt6::Widgets)
-elseif(Qt5_FOUND)
-    set(CMAKE_AUTOMOC ON)
-    set(CMAKE_AUTORCC ON)
-    set(CMAKE_AUTOUIC ON)
-    add_executable(forge_gui
-        src/gui/main_gui.cpp
-        src/gui/MainWindow.cpp
-        ${FORGE_ENGINE_SOURCES}
-    )
-    target_link_libraries(forge_gui PRIVATE Qt5::Widgets)
+    target_link_libraries(forge PRIVATE Qt6::Widgets)
+else()
+    target_link_libraries(forge PRIVATE Qt5::Widgets)
 endif()

@@ -4,7 +4,6 @@
 #include "../io/BinaryIO.h"
 #include "../io/Checksum.h"
 #include "../engine/CompressionEngine.h"
-
 #include <filesystem>
 #include <fstream>
 #include <stdexcept>
@@ -267,6 +266,11 @@ void ArchiveReader::extractFile(
                 uint32_t payload = io::readUint32(in);
                 uint32_t meta = io::readUint32(in);
                 io::readUint32(in);
+
+                if (payload > MAX_SAFE_BLOCK_PAYLOAD || meta > MAX_SAFE_BLOCK_PAYLOAD) {
+                    throw std::runtime_error("Block size exceeds safe bounds in extractFile");
+                }
+
                 in.seekg(payload + meta, std::ios::cur);
             }
         }

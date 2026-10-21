@@ -58,6 +58,8 @@ public:
     void reset() {
         m_len = 0;
         m_bitlen = 0;
+        m_finalized = false;
+        m_digest.fill(0);
         m_state[0] = 0x6a09e667;
         m_state[1] = 0xbb67ae85;
         m_state[2] = 0x3c6ef372;
@@ -69,6 +71,9 @@ public:
     }
 
     void update(const uint8_t* data, size_t length) {
+        if (m_finalized) {
+            throw std::logic_error("Cannot update finalized SHA256 context");
+        }
         for (size_t i = 0; i < length; ++i) {
             m_data[m_len] = data[i];
             ++m_len;
@@ -85,6 +90,10 @@ public:
     }
 
     Digest finalize() {
+        if (m_finalized) {
+            return m_digest;
+        }
+
         m_bitlen += m_len * 8;
         m_data[m_len++] = 0x80;
         if (m_len > 56) {
@@ -99,13 +108,13 @@ public:
         }
         transform(m_data.data());
 
-        Digest digest{};
         for (int i = 0; i < 4; ++i) {
             for (int j = 0; j < 8; ++j) {
-                digest[j * 4 + i] = static_cast<uint8_t>((m_state[j] >> (24 - i * 8)) & 0xFF);
+                m_digest[j * 4 + i] = static_cast<uint8_t>((m_state[j] >> (24 - i * 8)) & 0xFF);
             }
         }
-        return digest;
+        m_finalized = true;
+        return m_digest;
     }
 
     static Digest hash(const uint8_t* data, size_t length) {
@@ -194,6 +203,8 @@ private:
     size_t m_len{0};
     uint64_t m_bitlen{0};
     std::array<uint32_t, 8> m_state{};
+    bool m_finalized{false};
+    Digest m_digest{};
 };
 
 } // namespace io

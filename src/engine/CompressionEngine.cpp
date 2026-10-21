@@ -22,7 +22,7 @@ BlockRecord CompressionEngine::buildRawBlock(const uint8_t* data, size_t size) {
 }
 
 BlockRecord CompressionEngine::buildHuffmanBlock(const uint8_t* data, size_t size) {
-    Huffman huff;
+    huffman::Huffman huff;
     std::vector<uint8_t> input(data, data + size);
     auto enc = huff.compress(input);
 
@@ -31,11 +31,20 @@ BlockRecord CompressionEngine::buildHuffmanBlock(const uint8_t* data, size_t siz
     r.originalBlockSize = static_cast<uint32_t>(size);
     r.storedPayloadSize = static_cast<uint32_t>(enc.data.size());
 
-    // Serialize metadata: originalSize (4) + bitCount (8) + frequencies (256 * 8)
+    // Sparse metadata: originalSize(4) + bitCount(8) + distinctCount(2)
+    //                 + [symbol(1) + freq(8)] * distinctCount
     io::writeUint32(r.metadata, static_cast<uint32_t>(enc.originalSize));
     io::writeUint64(r.metadata, enc.bitCount);
+    uint16_t distinctCount = 0;
     for (size_t i = 0; i < 256; ++i) {
-        io::writeUint64(r.metadata, enc.frequencies[i]);
+        if (enc.frequencies[i] > 0) ++distinctCount;
+    }
+    io::writeUint16(r.metadata, distinctCount);
+    for (size_t i = 0; i < 256; ++i) {
+        if (enc.frequencies[i] > 0) {
+            io::writeUint8(r.metadata, static_cast<uint8_t>(i));
+            io::writeUint64(r.metadata, enc.frequencies[i]);
+        }
     }
     r.metadataSize = static_cast<uint32_t>(r.metadata.size());
     r.payload = std::move(enc.data);
@@ -43,7 +52,7 @@ BlockRecord CompressionEngine::buildHuffmanBlock(const uint8_t* data, size_t siz
 }
 
 BlockRecord CompressionEngine::buildLzwBlock(const uint8_t* data, size_t size) {
-    LZW lzw;
+    lzw::LZW lzw;
     std::vector<uint8_t> input(data, data + size);
     auto enc = lzw.compress(input);
 
@@ -164,22 +173,24 @@ std::vector<uint8_t> CompressionEngine::decompressBlock(const BlockRecord& block
         }
 
         case Method::HUFFMAN: {
-            if (block.metadataSize < 4 + 8 + 256 * 8) {
+            if (block.metadataSize < 4 + 8 + 2) {
                 throw std::invalid_argument("Huffman metadata truncated");
             }
             const uint8_t* ptr = block.metadata.data();
             size_t remaining = block.metadata.size();
 
-            Huffman::EncodedData enc;
+            huffman::Huffman::EncodedData enc;
             enc.originalSize = io::readUint32(ptr, remaining);
             enc.bitCount = io::readUint64(ptr, remaining);
-            enc.frequencies.resize(256);
-            for (size_t i = 0; i < 256; ++i) {
-                enc.frequencies[i] = io::readUint64(ptr, remaining);
+            enc.frequencies.assign(256, 0);
+            uint16_t distinctCount = io::readUint16(ptr, remaining);
+            for (uint16_t i = 0; i < distinctCount; ++i) {
+                uint8_t symbol = io::readUint8(ptr, remaining);
+                enc.frequencies[symbol] = io::readUint64(ptr, remaining);
             }
             enc.data = block.payload;
 
-            Huffman huff;
+            huffman::Huffman huff;
             uncompressed = huff.decompress(enc);
             break;
         }
@@ -191,12 +202,12 @@ std::vector<uint8_t> CompressionEngine::decompressBlock(const BlockRecord& block
             const uint8_t* ptr = block.metadata.data();
             size_t remaining = block.metadata.size();
 
-            LZW::EncodedData enc;
+            lzw::LZW::EncodedData enc;
             enc.originalSize = io::readUint32(ptr, remaining);
             enc.codeCount = io::readUint64(ptr, remaining);
             enc.data = block.payload;
 
-            LZW lzw;
+            lzw::LZW lzw;
             uncompressed = lzw.decompress(enc);
             break;
         }

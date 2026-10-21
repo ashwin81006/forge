@@ -1,5 +1,7 @@
 
 #include "Huffman.h"
+#include "../io/BitWriter.h"
+#include "../io/BitReader.h"
 #include <algorithm>
 #include <array>
 #include <limits>
@@ -11,6 +13,9 @@
 #include <vector>
 #include <cstdint>
 #include <cstddef>
+
+namespace forge {
+namespace huffman {
 
 namespace {
 
@@ -117,22 +122,36 @@ namespace {
 		return queue.empty() ? nullptr : queue.top();
 	}
 
+	// Bitwise Huffman code: avoids heap-allocated strings.
+	// Complexity: O(k) traversal of the tree with k leaf nodes.
+	struct HuffCode {
+		uint32_t bits{0};
+		uint8_t length{0};
+	};
+
 	void generateCodes(
 		const NodePtr& node,
-		const std::string& prefix,
-		std::array<std::string, 256>& codes) {
+		uint32_t code,
+		uint8_t depth,
+		std::array<HuffCode, 256>& codes) {
 
 		if (!node)
 			return;
 
 		if (node->isLeaf()) {
-			codes[node->value] =
-				prefix.empty() ? "0" : prefix;
+			codes[node->value] = {
+				code,
+				static_cast<uint8_t>(depth == 0 ? 1 : depth)
+			};
 			return;
 		}
 
-		generateCodes(node->left, prefix + "0", codes);
-		generateCodes(node->right, prefix + "1", codes);
+		generateCodes(node->left,
+			static_cast<uint32_t>(code << 1),
+			static_cast<uint8_t>(depth + 1), codes);
+		generateCodes(node->right,
+			static_cast<uint32_t>((code << 1) | 1),
+			static_cast<uint8_t>(depth + 1), codes);
 	}
 }
 
@@ -152,35 +171,20 @@ Huffman::EncodedData Huffman::compress(
 
 	NodePtr root = buildTree(result.frequencies);
 
-	std::array<std::string, 256> codes{};
-	generateCodes(root, "", codes);
+	std::array<HuffCode, 256> codes{};
+	generateCodes(root, 0, 0, codes);
 
-	uint8_t currentByte = 0;
-	int bitsUsed = 0;
-
+	// Encode: emit bits MSB-first from each code word using BitWriter.
+	// Complexity: O(n * avg_code_length) — linear in output size.
+	io::BitWriter writer(result.data);
 	for (uint8_t byte : input) {
-		for (char bit : codes[byte]) {
-			currentByte = static_cast<uint8_t>(
-				(currentByte << 1) |
-				(bit == '1' ? 1 : 0));
-
-			++bitsUsed;
+		const HuffCode& hc = codes[byte];
+		for (int i = hc.length - 1; i >= 0; --i) {
+			writer.writeBit(((hc.bits >> i) & 1) != 0);
 			++result.bitCount;
-
-			if (bitsUsed == 8) {
-				result.data.push_back(currentByte);
-				currentByte = 0;
-				bitsUsed = 0;
-			}
 		}
 	}
-
-	if (bitsUsed > 0) {
-		currentByte = static_cast<uint8_t>(
-			currentByte << (8 - bitsUsed));
-
-		result.data.push_back(currentByte);
-	}
+	writer.flush();
 
 	return result;
 }
@@ -246,21 +250,12 @@ std::vector<uint8_t> Huffman::decompress(
 			throw std::invalid_argument(
 				"Invalid single-symbol bit count");
 
-		for (uint64_t i = 0;
-			i < encoded.bitCount; ++i) {
-
-			size_t byteIndex =
-				static_cast<size_t>(i / 8);
-
-			int bitIndex =
-				7 - static_cast<int>(i % 8);
-
-			if (((encoded.data[byteIndex] >>
-				bitIndex) & 1) != 0) {
+		io::BitReader reader(encoded.data, encoded.bitCount);
+		for (uint64_t i = 0; i < encoded.bitCount; ++i) {
+			if (reader.readBit() != false) {
 				throw std::invalid_argument(
 					"Invalid single-symbol code");
 			}
-
 			output.push_back(root->value);
 		}
 
@@ -272,19 +267,10 @@ std::vector<uint8_t> Huffman::decompress(
 	}
 
 	NodePtr current = root;
+	io::BitReader reader(encoded.data, encoded.bitCount);
 
-	for (uint64_t i = 0;
-		i < encoded.bitCount; ++i) {
-
-		size_t byteIndex =
-			static_cast<size_t>(i / 8);
-
-		int bitIndex =
-			7 - static_cast<int>(i % 8);
-
-		bool bit =
-			((encoded.data[byteIndex] >> bitIndex) & 1) != 0;
-
+	while (reader.hasBits()) {
+		bool bit = reader.readBit();
 		current = bit ? current->right : current->left;
 
 		if (!current)
@@ -309,3 +295,6 @@ std::vector<uint8_t> Huffman::decompress(
 
 	return output;
 }
+
+} // namespace huffman
+} // namespace forge

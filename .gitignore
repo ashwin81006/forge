@@ -1,30 +1,98 @@
-# Build output
+# ==========================================
+# Build Outputs & CMake Directories
+# ==========================================
+build/
+build*/
+cmake-build-*/
 out/
+bin/
+dist/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
 
-# Visual Studio
+# ==========================================
+# Visual Studio / MSVC
+# ==========================================
 .vs/
-*.vcxproj.user
+*.sln.docstates
 *.suo
+*.user
+*.userosscache
+*.sln.ide
+*.vcxproj.user
 *.sdf
 *.opensdf
 *.opendb
+*.VC.db
+*.VC.opendb
+x64/
+x86/
+ARM/
+ARM64/
+Debug/
+Release/
+RelWithDebInfo/
+MinSizeRel/
+*.dir/
+ALL_BUILD.*
+ZERO_CHECK.*
+*.vcxproj
+*.vcxproj.filters
+*.slnx
 
-# CMake
-CMakeCache.txt
-CMakeFiles/
-cmake_install.cmake
-forge_implementation*
-
-# Compiled binaries
-*.exe
+# ==========================================
+# Compiled Binaries & Intermediate Objects
+# ==========================================
 *.obj
 *.o
+*.tlog
+*.log
+*.exe
+*.dll
+*.so
+*.dylib
+*.lib
+*.a
 *.pdb
 *.ilk
-*.lib
-*.dll
+*.idb
+*.exp
 
-# OS
+# ==========================================
+# FORGE Runtime & Generated Test Files
+# ==========================================
+*.forge
+extracted*/
+*.csv
+!samples/*.csv
+
+# ==========================================
+# Documentation & Memory Logs
+# ==========================================
+docs/
+project_memory.json
+project_memory.md
+project_memory*
+
+# ==========================================
+# Editors & IDEs
+# ==========================================
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ==========================================
+# Operating System Files
+# ==========================================
 Thumbs.db
 Desktop.ini
 .DS_Store
+._*
+.Spotlight-V100
+.Trashes

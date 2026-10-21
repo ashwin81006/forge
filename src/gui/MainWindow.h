@@ -10,6 +10,9 @@
 #include <QTableWidget>
 #include <QPushButton>
 
+#include <thread>
+#include <atomic>
+
 namespace forge {
 namespace gui {
 
@@ -18,7 +21,7 @@ class MainWindow : public QMainWindow {
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow() override = default;
+    ~MainWindow() override;
 
 private slots:
     // Compression tab
@@ -29,17 +32,17 @@ private slots:
     // Explorer tab
     void onOpenArchive();
     void onExtractArchive();
-
-    // Benchmark tab
-    void onRunBenchmark();
-    void onExportBenchmarkCSV();
+    void onTestArchiveIntegrity();
 
 private:
     void setupUi();
     QWidget* createHomeTab();
     QWidget* createCompressionTab();
     QWidget* createExplorerTab();
-    QWidget* createBenchmarkTab();
+    QWidget* createAboutTab();
+
+    // Helper for formatting byte counts to KB, MB, etc.
+    static QString formatBytes(uint64_t bytes);
 
     QTabWidget* m_tabs{nullptr};
 
@@ -55,11 +58,12 @@ private:
     QLineEdit* m_archivePathEdit{nullptr};
     QTableWidget* m_filesTable{nullptr};
     QLabel* m_explorerStatusLabel{nullptr};
+    QPushButton* m_btnExtract{nullptr};
+    QPushButton* m_btnTestArchive{nullptr};
 
-    // Benchmark Tab widgets
-    QTableWidget* m_benchmarkTable{nullptr};
-    QPushButton* m_benchmarkRunButton{nullptr};
-    QPushButton* m_benchmarkExportButton{nullptr};
+    // Worker thread management for safe background execution
+    std::thread m_workerThread;
+    std::atomic<bool> m_isProcessing{false};
 };
 
 } // namespace gui

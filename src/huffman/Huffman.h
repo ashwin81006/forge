@@ -6,6 +6,9 @@
 #include <cstdint>
 #include <vector>
 
+namespace forge {
+namespace huffman {
+
 class Huffman {
 public:
     struct EncodedData {
@@ -18,5 +21,8 @@ public:
     EncodedData compress(const std::vector<uint8_t>& input);
     std::vector<uint8_t> decompress(const EncodedData& encoded);
 };
+
+} // namespace huffman
+} // namespace forge
 
 #endif

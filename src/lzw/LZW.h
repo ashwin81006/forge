@@ -6,6 +6,9 @@
 #include <cstdint>
 #include <vector>
 
+namespace forge {
+namespace lzw {
+
 class LZW {
 public:
     // Fixed-width 16-bit codes, dictionary capped at 65536 entries.
@@ -21,5 +24,8 @@ public:
     EncodedData compress(const std::vector<uint8_t>& input);
     std::vector<uint8_t> decompress(const EncodedData& encoded);
 };
+
+} // namespace lzw
+} // namespace forge
 
 #endif

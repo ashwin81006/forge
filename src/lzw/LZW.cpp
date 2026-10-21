@@ -7,6 +7,9 @@
 #include <cstdint>
 #include <cstddef>
 
+namespace forge {
+namespace lzw {
+
 // ─────────────────────────────────────────────────────────────────────
 // LZW Compression
 //
@@ -237,3 +240,6 @@ std::vector<uint8_t> LZW::decompress(
 
     return output;
 }
+
+} // namespace lzw
+} // namespace forge
