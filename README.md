@@ -224,22 +224,22 @@ cmake --build build -j$(nproc)
 
 ## Desktop GUI Overview
 
-The Qt 6 interface provides four functional tabs:
+The Qt 6 interface is designed as a sleek, modern desktop compression utility featuring two focused primary workspaces:
 
-1. **Home**:
-   - Welcome overview of FORGE capabilities and core compression metrics.
-   - Quick navigation shortcuts to create archives or open the explorer.
-2. **Create Archive**:
-   - **Source Folder**: Select any local directory to compress recursively.
-   - **Destination**: Choose target `.forge` archive path.
-   - **Block Size**: Configure chunk boundaries (`16 KiB`, `64 KiB`, `256 KiB`, `1024 KiB`).
-   - **Live Progress**: Asynchronous progress bar, current file indicator, and thread-safe execution.
-3. **Archive Explorer**:
-   - **TOC Inspection**: View all files stored in a `.forge` archive with original sizes, compressed sizes, and percentage space saved.
-   - **Test Archive**: Run complete SHA-256 and CRC-32 validation across all files without writing to disk.
-   - **Extract Archive**: Safely extract all archive contents to a target folder with sandbox path validation.
-4. **About**:
-   - Algorithm specifications, version details, and technical architecture references.
+1. **📦 Create Archive**:
+   - **Dual-Input Mode**: Supports archiving entire directory trees or individual standalone files.
+   - **Native Drag & Drop**: Drag any folder or file directly into the application window to prepare an archive instantly.
+   - **Target Auto-Completion**: Automatically suggests destination `.forge` file paths upon source selection.
+   - **Block Size Configuration**: Configurable chunk boundaries (`16 KiB`, `64 KiB`, `256 KiB`, `1024 KiB`).
+   - **Live Progress Monitor**: Real-time progress bar, file count tracker, processed byte indicator, and elapsed compression time.
+   - **Success Card**: Immediate summary of final archive size and throughput, with quick shortcuts to "Open Output Folder" and "Inspect in Explorer".
+
+2. **📂 Archive Explorer**:
+   - **Interactive Table & KPI Dashboard**: Real-time metric cards displaying total file count, uncompressed volume, compressed archive size, and overall space savings percentage.
+   - **Instant Search / Filter**: Live text filtering across filenames and paths within the archive.
+   - **File-Level & Batch Extraction**: Extract all files or select individual files via double-click or right-click context menu.
+   - **Deep Cryptographic Verification**: One-click SHA-256 and CRC-32 integrity validation across all file records and block boundaries.
+   - **Native Drag & Drop**: Drop any `.forge` file anywhere on the application to load and inspect it immediately.
 
 ---
 
